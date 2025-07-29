@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>소개 포스터</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #faf7ff;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      border: 1px solid #e4d9ff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(160, 120, 255, 0.1);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      background-color: #ebe2ff;
+    }
+    .header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+      border: 2px solid #d1b3ff;
+      background-color: #000;
+    }
+    .header-text h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #5e429f;
+    }
+    .main {
+      display: flex;
+      padding: 24px;
+    }
+    .left, .right {
+      flex: 1;
+      padding: 16px 20px;
+    }
+    .left {
+      border-right: 1px solid #eee;
+    }
+    .left h2 {
+      color: #6b4bb2;
+    }
+    .right .card {
+      background: #f6f1ff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      border-left: 4px solid #c3a9ff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .right .card img {
+      width: 20px;
+      height: 20px;
+    }
+    .footer {
+      padding: 20px;
+      font-size: 14px;
+      background: #f4edff;
+      text-align: center;
+      border-top: 1px solid #e3d3ff;
+      color: #5e429f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="" alt="프로필 이미지" />
+      <div class="header-text">
+        <h1>성유진</h1>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <h2>자기소개</h2>
+        <p>
+          안녕하세요! 저는 한밭대학교 정보통신공학과에 재학 중인 성유진입니다.<br>
+          실무 중심의 프로젝트와 팀 활동을 통해 한층 더 성장하고자 부트캠프에 참여하게 되었습니다.<br>
+          
+        </p>
+      </div>
+      <div class="right">
+        <div class="card"><strong>MBTI:</strong> ISTP</div>
+        <div class="card">
+          <strong>학교:</strong> 한밭대학교
+        </div>
+        <div class="card">
+          <strong>전공:</strong> 정보통신공학과
+          <img src="https://cdn-icons-png.flaticon.com/512/3409/3409544.png" alt="공학 아이콘" />
+        </div>
+        
+        <div class="card">
+          <strong>취미:</strong> 음악 듣기
+          <img src="https://cdn-icons-png.flaticon.com/512/727/727269.png" alt="음악 아이콘" />
+        </div>
+        <div class="card">
+          <strong>&nbsp;</strong> 유튜브 시청
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="유튜브 아이콘" />
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><strong>협업 스타일:</strong> 맡은 바를 책임감 있게 수행하며, 효율적인 소통을 중요하게 생각합니다.</p>
+    </div>
+  </div>
+</body>
+</html>

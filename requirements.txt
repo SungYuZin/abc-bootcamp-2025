@@ -1,2 +1,10 @@
 openai
 python-dotenv
+streamlit
+gits
+pygame
+
+
+requests
+httpx
+beautifulsoup4

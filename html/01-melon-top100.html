@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멜론 검색 결과: Idol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 커스텀 스크롤바 스타일 (선택 사항) */
+        .scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1; /* slate-300 */
+            border-radius: 4px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background-color: #f1f5f9; /* slate-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-6">
+    <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <header class="bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white text-center">
+            <h1 class="text-4xl font-extrabold mb-2">멜론 검색 결과</h1>
+            <p class="text-xl font-medium">키워드: <span class="font-bold">Idol</span></p>
+        </header>
+
+        <main class="p-6 space-y-8">
+            <section>
+                <h2 class="text-3xl font-bold text-gray-800 mb-5 pb-2 border-b-2 border-green-400">
+                    <span class="mr-2 text-green-500">🎤</span>다수곡 등록 가수 (2곡 이상, 내림차순)
+                </h2>
+                <div class="overflow-x-auto rounded-lg shadow">
+                    <table id="top-artists-by-song-count-table" class="min-w-full bg-white border-collapse">
+                        <thead class="bg-green-100">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">순위</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">가수 이름</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-200">등록 곡 수</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top-artists-table-body" class="divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+                <p id="no-top-artist" class="text-gray-500 text-center py-4 hidden">다수곡 등록 가수를 찾을 수 없습니다.</p>
+            </section>
+
+            ---
+
+            <section>
+                <h2 class="text-3xl font-bold text-gray-800 mb-5 pb-2 border-b-2 border-green-400">
+                    <span class="mr-2 text-green-500">🎤</span>아티스트
+                </h2>
+                <div id="artist-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    </div>
+                <p id="no-artist" class="text-gray-500 text-center py-4 hidden">검색된 아티스트가 없습니다.</p>
+            </section>
+
+            ---
+
+            <section>
+                <h2 class="text-3xl font-bold text-gray-800 mb-5 pb-2 border-b-2 border-green-400">
+                    <span class="mr-2 text-green-500">🎶</span>곡
+                </h2>
+                <div id="song-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
+                <p id="no-song" class="text-gray-500 text-center py-4 hidden">검색된 곡이 없습니다.</p>
+            </section>
+
+            ---
+
+            <section>
+                <h2 class="text-3xl font-bold text-gray-800 mb-5 pb-2 border-b-2 border-green-400">
+                    <span class="mr-2 text-green-500">💿</span>앨범
+                </h2>
+                <div id="album-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                <p id="no-album" class="text-gray-500 text-center py-4 hidden">검색된 앨범이 없습니다.</p>
+            </section>
+        </main>
+
+        <footer class="bg-gray-800 text-white p-4 text-center text-sm">
+            <p>&copy; 2025 Melon Search Results. Data provided by Melon.</p>
+        </footer>
+    </div>
+
+    <script>
+        const melonData = {
+            'STATUS': '0', 'KEYWORD': 'idol', 'ARTISTCONTENTS': [{'ARITSTIMG': 'https://cdnimg.melon.co.kr/cm2/artistcrop/images/007/10/093/710093_20250203172605.jpg?97178f75d64593c6780e0b561d23eb1d/melon/resize/40', 'NATIONALITYNAME': '캐나다', 'ARTISTNAME': 'The Weeknd', 'ARTISTNAMEDP': 'The Weeknd', 'SEX': '남성', 'ACTTYPENAMES': '솔로', 'ARTISTID': '710093'}], 'SONGCONTENTS': [{'SONGID': '39166714', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/118/59/863/11859863_20250620104512.jpg?YUV444/melon/resize/40', 'ARTISTNAME': 'KPop Demon Hunters Cast,Danny Chung,Saja Boys,Andrew Choi,Neckwav,Kevin Woo,samUIL Lee', 'SONGNAME': 'Your Idol', 'ALBUMID': '11859863', 'ALBUMNAME': 'KPop Demon Hunters (Soundtrack from the Netflix Film)', 'SONGNAMEDP': 'Your Idol', 'ARTISTID': '4348387,924443,4348388,684312,2740538,669893,4348389'}, {'SONGID': '31266290', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm/album/images/101/97/480/10197480.jpg?84777617ecc6d64d0177f28466029a74/melon/resize/40', 'ARTISTNAME': '방탄소년단', 'SONGNAME': 'IDOL', 'ALBUMID': '10197480', 'ALBUMNAME': "LOVE YOURSELF 結 'Answer'", 'SONGNAMEDP': 'IDOL', 'ARTISTID': '672375'}, {'SONGID': '39235252', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/118/75/910/11875910_20250702050958.jpg?2dab3bdca15aa70d7e38a9a73e2595ea/melon/resize/40', 'ARTISTNAME': 'CG5', 'SONGNAME': 'Your Idol (CG5 Version)', 'ALBUMID': '11875910', 'ALBUMNAME': 'Your Idol (CG5 Version)', 'SONGNAMEDP': 'Your Idol (CG5 Version)', 'ARTISTID': '2761085'}, {'SONGID': '36471402', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/112/50/403/11250403_20230524085012.jpg/melon/resize/40', 'ARTISTNAME': 'YOASOBI', 'SONGNAME': 'Idol', 'ALBUMID': '11250403', 'ALBUMNAME': 'Idol', 'SONGNAMEDP': 'Idol', 'ARTISTID': '2871809'}, {'SONGID': '34753559', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/108/90/213/10890213_20220311163556.jpg/melon/resize/40', 'ARTISTNAME': 'Morpheus,Neptunica', 'SONGNAME': 'Super Idol (热爱105°C的你)', 'ALBUMID': '10890213', 'ALBUMNAME': 'Super Idol (热爱105°C的你)', 'SONGNAMEDP': 'Super Idol (热爱105°C의 당신)', 'ARTISTID': '2953234,994274'}, {'SONGID': '36520311', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/112/62/534/11262534_20230612120056.jpg/melon/resize/40', 'ARTISTNAME': 'The Weeknd,Madonna', 'SONGNAME': 'Popular (From The Idol Vol. 1 (Music from the HBO Original Series)) (Feat. Playboi Carti)', 'ALBUMID': '11262534', 'ALBUMNAME': 'Popular (Music from the HBO Original Series)', 'SONGNAMEDP': 'Popular (From The Idol Vol. 1 (Music from the HBO Original Series)) (Feat. Playboi Carti)', 'ARTISTID': '710093,2081'}, {'SONGID': '35868070', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/111/10/741/11110741_20221125133430.jpg/melon/resize/40', 'ARTISTNAME': 'Green Gao', 'SONGNAME': 'SUPER IDOL 的笑容/热爱105°C 的你 (GREEN GAO HARDSTYLE REMIX)', 'ALBUMID': '11110741', 'ALBUMNAME': 'SUPER IDOL 的笑容/热爱105°C의 당신 (GREEN GAO HARDSTYLE REMIX)', 'SONGNAMEDP': 'SUPER IDOL 的笑容/热爱105°C의 당신 (GREEN GAO HARDSTYLE REMIX)', 'ARTISTID': '3472443'}, {'SONGID': '37239470', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/114/24/603/11424603_20240221231720.jpg/melon/resize/40', 'ARTISTNAME': 'Honeyworks', 'SONGNAME': 'HokoritakakiIdol (feat. Kotoha)', 'ALBUMID': '11424603', 'ALBUMNAME': 'Kokuhakujikkouiinkai -FLYING SONGS- Aishiteru', 'SONGNAMEDP': 'HokoritakakiIdol (feat. Kotoha)', 'ARTISTID': '1703978'}, {'SONGID': '31266284', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm/album/images/101/97/480/10197480.jpg?84777617ecc6d64d0177f28466029a74/melon/resize/40', 'ARTISTNAME': '방탄소년단', 'SONGNAME': 'IDOL (Feat. Nicki Minaj)', 'ALBUMID': '10197480', 'ALBUMNAME': "LOVE YOURSELF 結 'Answer'", 'SONGNAMEDP': 'IDOL (Feat. Nicki Minaj)', 'ARTISTID': '672375'}, {'SONGID': '38315703', 'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/116/63/075/11663075_20241210172441.jpg?YUV444/melon/resize/40', 'ARTISTNAME': 'TAKANE NO NADESHIKO', 'SONGNAME': "I'M YOUR IDOL", 'ALBUMID': '11663075', 'ALBUMNAME': "I'M YOUR IDOL / アドレナリンゲーム(ADRENALINE GAME)", 'SONGNAMEDP': "I'M YOUR IDOL", 'ARTISTID': '3687934'}], 'ALBUMCONTENTS': [{'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/109/82/221/10982221_20220614102851.jpg/melon/resize/40', 'ARTISTNAME': 'Kubihuri Dolls', 'ALBUMID': '10982221', 'ISSUEDATE': '20220615', 'ALBUMNAME': 'Doll! Doll! Doll!', 'ALBUMNAMEDP': 'Doll! Doll! Doll!'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/111/67/120/11167120_20230207165454.jpg/melon/resize/40', 'ARTISTNAME': 'IDOLOJIN(이돌로진)', 'ALBUMID': '11167120', 'ISSUEDATE': '20230207', 'ALBUMNAME': '나만의 멋 (My own style)', 'ALBUMNAMEDP': '나만의 멋 (My own style)'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/116/37/713/11637713_20241111103850.jpg?5b62df6ad56041b8bd07389f2ffc1f67/melon/resize/40', 'ARTISTNAME': 'Nijigasaki High School Idol Club', 'ALBUMID': '11637713', 'ISSUEDATE': '20241204', 'ALBUMNAME': '"Love Live! Nijigasaki High School Idol Club The Movie - Finale - Chapter 1" Original Soundtrack & Vocal Collection: Sangosho no Kioku', 'ALBUMNAMEDP': '&quot;Love Live! Nijigasaki High School Idol Club The Movie - Finale - Chapter 1&quot; Original Soundtrack &amp; Vocal Collection: Sangosho no Kioku'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/112/49/751/11249751_20230523112802.jpg/melon/resize/40', 'ARTISTNAME': 'IDOLiSH7,TRIGGER,Re:vale,ŹOOĻ', 'ALBUMID': '11249751', 'ISSUEDATE': '20230524', 'ALBUMNAME': 'IDOLiSH7 the Movie LIVE 4bit Compilation Album "BEYOND THE PERiOD" [DAY 2]', 'ALBUMNAMEDP': 'IDOLiSH7 the Movie LIVE 4bit Compilation Album &quot;BEYOND THE PERiOD&quot; [DAY 2]'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/111/03/587/11103587_20221116124231.jpg/melon/resize/40', 'ARTISTNAME': 'Idol', 'ALBUMID': '11103587', 'ISSUEDATE': '20221118', 'ALBUMNAME': 'This Christmas (Idol 2022)', 'ALBUMNAMEDP': 'This Christmas (Idol 2022)'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/112/99/891/11299891_20230804104517.jpg/melon/resize/40', 'ARTISTNAME': 'Vietnam Idol', 'ALBUMID': '11299891', 'ISSUEDATE': '20230805', 'ALBUMNAME': 'Vietnam Idol (2023) - Tập 5', 'ALBUMNAMEDP': 'Vietnam Idol (2023) - Tập 5'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/115/13/048/11513048_20240614142318.jpg/melon/resize/40', 'ARTISTNAME': 'The Idolm@ster Cinderella Girls', 'ALBUMID': '11513048', 'ISSUEDATE': '20240617', 'ALBUMNAME': 'The Idolm@ster Cinderella Girls 10th Anniversary M@gical Wonderland!!! Original Album the Idolm@ster Cinderella Girls to D@nce to Too! (Game Version)', 'ALBUMNAMEDP': 'The Idolm@ster Cinderella Girls 10th Anniversary M@gical Wonderland!!! Original Album the Idolm@ster Cinderella Girls to D@nce to Too! (Game Version)'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/110/35/947/11035947_20220823143825.jpg/melon/resize/40', 'ARTISTNAME': 'IDOLiSH7,TRIGGER,ŹOOĻ,Re:vale', 'ALBUMID': '11035947', 'ISSUEDATE': '20220817', 'ALBUMNAME': 'IDOLiSH7 7th Anniversary Song "CROSSOVER ROTATION"', 'ALBUMNAMEDP': 'IDOLiSH7 7th Anniversary Song &quot;CROSSOVER ROTATION&quot;'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/112/49/753/11249753_20230523112837.jpg/melon/resize/40', 'ARTISTNAME': 'IDOLiSH7,TRIGGER,Re:vale,ŹOOĻ', 'ALBUMID': '11249753', 'ISSUEDATE': '20230524', 'ALBUMNAME': 'Movie IDOLiSH7 LIVE 4bit Compilation Album "BEYOND THE PERiOD" [DAY 1]', 'ALBUMNAMEDP': 'Movie IDOLiSH7 LIVE 4bit Compilation Album &quot;BEYOND THE PERiOD&quot; [DAY 1]'}, {'ALBUMIMG': 'https://cdnimg.melon.co.kr/cm2/album/images/109/62/000/10962000_20220519121045.jpg/melon/resize/40', 'ARTISTNAME': 'Billy Idol', 'ALBUMID': '10962000', 'ISSUEDATE': '19820101', 'ALBUMNAME': 'Billy Idol', 'ALBUMNAMEDP': 'Billy Idol'}], 'KEYWORDCONTENTS': [{'KEYWORDDP': 'Your Idol', 'KEYWORD': 'Your Idol'}, {'KEYWORDDP': 'Idol', 'KEYWORD': 'Idol'}, {'KEYWORDDP': 'Super Idol', 'KEYWORD': 'Super Idol'}, {'KEYWORDDP': 'IDOLiSH7', 'KEYWORD': 'IDOLiSH7'}, {'KEYWORDDP': 'Fake Idol', 'KEYWORD': 'Fake Idol'}], 'httpDomain': 'http://www.melon.com', 'httpsDomain': 'https://www.melon.com', 'staticDomain': 'https://static.melon.co.kr'}
+        ;
+
+        // 다수곡 등록 아티스트 렌더링 함수 (테이블 스타일)
+        function renderTopArtistsBySongCount() {
+            const topArtistsTableBody = document.getElementById('top-artists-table-body');
+            const noTopArtist = document.getElementById('no-top-artist');
+
+            const artistSongCounts = {}; // 아티스트별 곡 수를 저장할 객체
+
+            // 1. SONGCONTENTS에서 아티스트별 곡 수 집계
+            if (melonData.SONGCONTENTS && melonData.SONGCONTENTS.length > 0) {
+                melonData.SONGCONTENTS.forEach(song => {
+                    // 콤마로 구분된 여러 아티스트 처리
+                    const artists = song.ARTISTNAME.split(',').map(name => name.trim());
+                    artists.forEach(artistName => {
+                        artistSongCounts[artistName] = (artistSongCounts[artistName] || 0) + 1;
+                    });
+                });
+            }
+
+            // 2. 곡 수가 1개 초과 (2개 이상)인 아티스트 필터링 및 내림차순 정렬
+            const sortedArtists = Object.keys(artistSongCounts)
+                .map(artistName => ({
+                    artistName: artistName,
+                    songCount: artistSongCounts[artistName]
+                }))
+                .filter(artist => artist.songCount > 1) // 1곡 초과 (2곡 이상)만 포함
+                .sort((a, b) => b.songCount - a.songCount); // 곡 수 내림차순 정렬
+
+            if (sortedArtists.length > 0) {
+                topArtistsTableBody.innerHTML = sortedArtists.map((artist, index) => `
+                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 transition duration-150 ease-in-out">
+                        <td class="py-2 px-4 text-sm text-gray-700 whitespace-nowrap border-b border-gray-200">${index + 1}</td>
+                        <td class="py-2 px-4 text-sm font-medium text-gray-900 whitespace-nowrap border-b border-gray-200">${artist.artistName}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700 whitespace-nowrap border-b border-gray-200">${artist.songCount}</td>
+                    </tr>
+                `).join('');
+                noTopArtist.classList.add('hidden');
+            } else {
+                noTopArtist.classList.remove('hidden');
+            }
+        }
+
+
+        // 기존 아티스트 렌더링 함수 (변경 없음)
+        function renderArtists() {
+            const artistList = document.getElementById('artist-list');
+            const noArtist = document.getElementById('no-artist');
+            if (melonData.ARTISTCONTENTS && melonData.ARTISTCONTENTS.length > 0) {
+                artistList.innerHTML = melonData.ARTISTCONTENTS.map(artist => `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                        <div class="flex items-center p-4">
+                            <img src="${artist.ARITSTIMG}" alt="${artist.ARTISTNAME}" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-green-300">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">${artist.ARTISTNAME}</h3>
+                                <p class="text-sm text-gray-600">${artist.NATIONALITYNAME} | ${artist.ACTTYPENAMES}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                noArtist.classList.add('hidden');
+            } else {
+                noArtist.classList.remove('hidden');
+            }
+        }
+
+        // 기존 곡 렌더링 함수 (변경 없음)
+        function renderSongs() {
+            const songList = document.getElementById('song-list');
+            const noSong = document.getElementById('no-song');
+            if (melonData.SONGCONTENTS && melonData.SONGCONTENTS.length > 0) {
+                songList.innerHTML = melonData.SONGCONTENTS.map(song => `
+                    <div class="bg-white rounded-lg shadow-md p-4 flex items-center space-x-4 transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                        <img src="${song.ALBUMIMG}" alt="${song.SONGNAME}" class="w-20 h-20 rounded-md object-cover border border-gray-200">
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900 truncate">${song.SONGNAME}</h3>
+                            <p class="text-sm text-gray-600 truncate">${song.ARTISTNAME}</p>
+                            <p class="text-xs text-gray-500 truncate">${song.ALBUMNAME}</p>
+                        </div>
+                        <a href="${melonData.httpDomain}/song/detail.htm?songId=${song.SONGID}" target="_blank" class="flex-shrink-0 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition duration-200">
+                            상세 보기
+                        </a>
+                    </div>
+                `).join('');
+                noSong.classList.add('hidden');
+            } else {
+                noSong.classList.remove('hidden');
+            }
+        }
+
+        // 기존 앨범 렌더링 함수 (변경 없음)
+        function renderAlbums() {
+            const albumList = document.getElementById('album-list');
+            const noAlbum = document.getElementById('no-album');
+            if (melonData.ALBUMCONTENTS && melonData.ALBUMCONTENTS.length > 0) {
+                albumList.innerHTML = melonData.ALBUMCONTENTS.map(album => `
+                    <div class="bg-white rounded-lg shadow-md p-4 text-center transform transition duration-300 hover:scale-105 hover:shadow-lg">
+                        <img src="${album.ALBUMIMG}" alt="${album.ALBUMNAME}" class="w-32 h-32 mx-auto rounded-md object-cover mb-3 border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 truncate">${album.ALBUMNAME}</h3>
+                        <p class="text-sm text-gray-600 truncate">${album.ARTISTNAME}</p>
+                        <p class="text-xs text-gray-500">${album.ISSUEDATE.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')}</p>
+                        <a href="${melonData.httpDomain}/album/detail.htm?albumId=${album.ALBUMID}" target="_blank" class="mt-3 inline-block bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition duration-200">
+                            상세 보기
+                        </a>
+                    </div>
+                `).join('');
+                noAlbum.classList.add('hidden');
+            } else {
+                noAlbum.classList.remove('hidden');
+            }
+        }
+
+        // 페이지 로드 시 데이터 렌더링
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTopArtistsBySongCount(); // 업데이트된 함수 호출
+            renderArtists();
+            renderSongs();
+            renderAlbums();
+        });
+    </script>
+</body>
+</html>
